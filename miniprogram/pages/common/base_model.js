@@ -33,6 +33,31 @@ class Common extends Base {
     };
     this.request(params);
   }
+
+  //获取场景下的全部设备
+  getAllDeviceByUserAndScene(sceneId, callback) {
+    var params = {
+      url: '/rdc/rdcDevice/getAllDeviceByUserAndScene/' + sceneId,
+      method: 'GET',
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
+
+  //发送设备数据
+  pushDeviceData(params, callback) {
+    var params = {
+      url: '/rdc/rdcDevice/pushDeviceData',
+      method: 'POST',
+      data: params,
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(params);
+  }
 }
 
 export {

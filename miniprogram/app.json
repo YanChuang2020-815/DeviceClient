@@ -2,7 +2,8 @@
   "pages": [
     "pages/home/index",
     "pages/my/index",
-    "pages/home/scene/index"
+    "pages/home/scene/index",
+    "pages/my/pages/login/login"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

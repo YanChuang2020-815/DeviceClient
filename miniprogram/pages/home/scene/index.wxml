@@ -1,2 +1,19 @@
 <!--miniprogram/pages/home/device/index.wxml-->
-<text>miniprogram/pages/home/device/index.wxml</text>
+<view>
+  <van-grid column-num="1" border="{{ true }}">
+    <van-grid-item use-slot wx:for="{{ devices }}" wx:for-item="device" wx:key="deviceId">
+      <view>
+        <text>{{device.name}}</text>
+        <image
+          style="width: 100%; height: 90px;"
+          src="{{device.url}}"
+        />
+        <view class='stepper'>
+          <text class='{{minusStatus}}' type='number'  bindtap='bindMinus' data-index="{{index}}">-</text>
+          <input bindinput='bindManual' value='{{device.num}}' data-index="{{index}}"></input>
+          <text bindtap='bindPlus' data-index="{{index}}">+</text>
+        </view>
+      </view>
+    </van-grid-item>
+  </van-grid>
+</view>

@@ -1,38 +1,18 @@
-// miniprogram/pages/my/index.js
-import {
-  Common
-} from '../common/base_model';
-var common = new Common();
+// pages/my/pages/login/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    items:[
 
-    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    common.getAllScene(res => {
-      console.log(res.result);
-      this.setData({
-        items: res.result
-      })
-    })
-  },
 
-  //选中场景
-  select: function (e) {
-    console.log(e.currentTarget.dataset.flag)
-    let scene = e.currentTarget.dataset.flag
-    wx.navigateTo({
-      url: '/pages/home/scene/index?sceneId=' + scene.id,
-    })
   },
 
   /**

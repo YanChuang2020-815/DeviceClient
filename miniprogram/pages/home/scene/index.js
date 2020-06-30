@@ -1,20 +1,105 @@
-// miniprogram/pages/home/device/index.js
+// miniprogram/pages/home/scene/index.js
+import {
+  Common
+} from '../../common/base_model';
+var common = new Common();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    devices:[
 
+    ],
+    minusStatus:'disable'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const sceneId = options.sceneId
+    console.log(sceneId)
+    common.getAllDeviceByUserAndScene(sceneId, (res) => {
+      console.log(res)
+      let devices = [];
+      let device = null;
+      res.result.map(item => {
+        if (item.type != "camera") {
+          device = item;
+          device.num = 30;
+          devices.push(device);
+        }
+      })
+      this.setData({
+        devices:devices
+      })
+    })
   },
 
+  //事件处理函数
+  /*点击减号*/
+  bindMinus: function(e) {
+    const index = e.currentTarget.dataset.index;
+    const devices = this.data.devices;
+    let device = devices[index];
+    var num = device.num;
+    if (num>1) {
+      num--;
+    }
+    var minusStatus = num>1 ? 'normal':'disable';
+    this.setData({
+      devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
+      minusStatus:minusStatus
+    })
+    this.sendDeviceData(device);
+  },
+  /*点击加号*/
+  bindPlus: function(e) {
+    const index = e.currentTarget.dataset.index;
+    const devices = this.data.devices;
+    let device = devices[index];
+    var num = device.num;
+    num++;
+    var minusStatus = num > 1 ? 'normal' : 'disable';
+    this.setData({
+      devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
+      minusStatus: minusStatus
+    })
+    this.sendDeviceData(device);
+  },
+  /*输入框事件*/
+  bindManual: function(e) {
+    const devices = this.data.devices;
+    const index = e.currentTarget.dataset.index;
+    var num = e.detail.value;
+    var minusStatus = num > 1 ? 'normal' : 'disable';
+    this.setData({
+      devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
+      minusStatus: minusStatus
+    })
+    this.sendDeviceData(device);
+  },
+
+  //发送设备数据
+  sendDeviceData: function (device) {
+    let deviceData = {
+      deviceId: device.deviceId,
+      name: device.name,
+      deviceType: device.type,
+      data:[
+        {
+          key: "value",
+          ts: new Date(),
+          value: device.num
+        }
+      ] 
+    }
+    common.pushDeviceData(deviceData, (res) => {
+      console.log(res)
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
