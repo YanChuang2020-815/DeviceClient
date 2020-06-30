@@ -52,8 +52,9 @@ Page({
     this.setData({
       devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
       minusStatus:minusStatus
+    },function() {
+      this.sendDeviceData(index)
     })
-    this.sendDeviceData(device);
   },
   /*点击加号*/
   bindPlus: function(e) {
@@ -66,8 +67,9 @@ Page({
     this.setData({
       devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
       minusStatus: minusStatus
+    },function() {
+      this.sendDeviceData(index)
     })
-    this.sendDeviceData(device);
   },
   /*输入框事件*/
   bindManual: function(e) {
@@ -78,12 +80,14 @@ Page({
     this.setData({
       devices:devices.map((item, idx) => idx === index ? {...item, num: num} : item),
       minusStatus: minusStatus
+    },function() {
+      this.sendDeviceData(index)
     })
-    this.sendDeviceData(device);
   },
 
   //发送设备数据
-  sendDeviceData: function (device) {
+  sendDeviceData: function (index) {
+    const device = this.data.devices[index];
     let deviceData = {
       deviceId: device.deviceId,
       name: device.name,

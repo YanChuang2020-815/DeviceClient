@@ -10,7 +10,7 @@
         />
         <view class='stepper'>
           <text class='{{minusStatus}}' type='number'  bindtap='bindMinus' data-index="{{index}}">-</text>
-          <input bindinput='bindManual' value='{{device.num}}' data-index="{{index}}"></input>
+          <input bindconfirm='bindManual' value='{{device.num}}' data-index="{{index}}"></input>
           <text bindtap='bindPlus' data-index="{{index}}">+</text>
         </view>
       </view>
