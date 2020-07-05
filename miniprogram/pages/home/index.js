@@ -18,12 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    common.getAllScene(res => {
-      console.log(res.result);
-      this.setData({
-        items: res.result
-      })
-    })
+    
   },
 
   //选中场景
@@ -46,7 +41,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var userInfo = wx.getStorageSync('tokenInfo');
+    if (userInfo == undefined || userInfo == null || userInfo == '') {
+      wx.navigateTo({
+        url: '/pages/my/pages/login/login',
+      })
+    } else {
+      common.getAllScene(res => {
+        console.log(res.result);
+        this.setData({
+          items: res.result
+        })
+      })
+    }
   },
 
   /**
